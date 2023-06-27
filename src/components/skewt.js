@@ -3,7 +3,7 @@ import * as math from "../math";
 
 import { GRAPH_BOTTOM_MARGIN_PX } from "../selectors/sounding";
 // eslint-disable-next-line no-unused-vars
-import { Parcel, RainDrop } from "../components/parcel";
+import { Parcel, Cumulus } from "../components/parcel";
 import { PureComponent } from "./pure";
 // eslint-disable-next-line no-unused-vars
 import { h } from "preact";
@@ -83,6 +83,7 @@ export class SkewT extends PureComponent {
           onPointerMove={(e) => setYPointer(e.offsetY)}
         >
           <rect width={width} height={height} fill="white" opacity="0.1" />
+          <Cumulus x={90} y={40} scale={10} opacity={0.08} fillOpacity={0.5} text="75%" />
           <g class="axis">
             {[-20, -10, 0, 10, 20, 30, 40, 50, 60, 70, 80].map((t) => (
               <DryAdiabat
@@ -108,7 +109,7 @@ export class SkewT extends PureComponent {
             {[-70, -60, -50, -40, -30, -20, -10, 0, 10, 20, 30, 40].map((t) => (
               <IsoTherm temp={t + 273.15} {...{ height, pToPx, line }} />
             ))}
-            {parcel && <Parcel {...{ parcel, width, height, line, pToPx, formatAltitude, rain: params.rain }} />}
+            {parcel && <Parcel {...{ parcel, width, height, line, pToPx, formatAltitude }} />}
             <TemperatureAxis
               width={width}
               height={height}
@@ -124,11 +125,11 @@ export class SkewT extends PureComponent {
               pSfc={pSfc}
               highClouds={zoom}
             />
-            {params.rain && !parcel && <RainDrop x={width+9} y={26} />}
             <AltitudeAxis width={width} pAxisToPx={pAxisToPx} step={ghAxisStep} metric={ghMetric} />
           </g>
           <path class="line temperature" d={line(math.zip(params.temp, params.level))} />
           <path class="line dewpoint" d={line(math.zip(params.dewpoint, params.level))} />
+          <RainDrop x={105} y={20} />
           <rect class="surface" y={sfcPx} width={width} height={height - sfcPx + 1} />
           {yPointer != null && yPointer < sfcPx ? (
             <g>
@@ -277,7 +278,7 @@ const Clouds = ({ width, cloudCover, pToPx, pSfc, highClouds }) => {
       <text
         class="tick"
         y={30 - 5}
-        x={width - 15}
+        x={width - 5}
         text-anchor="end"
         filter="url(#whiteOutlineEffect)"
       >
@@ -311,3 +312,11 @@ const Cloud = ({ y, height, width, cover }) => {
   }
   return <rect {...{ y, height, width }} fill={`rgba(${cover}, ${cover}, ${cover}, 0.7)`} />;
 };
+
+const RainDrop = ({ x, y }) => {
+  return (
+    <path class="raindrop"
+      transform={`translate(${x - 36 + 15}, ${y - 36 + 25}) scale(0.25)`}
+      d="M26.4562,52.9128c10.248,0,18.5862-8.3362,18.5862-18.5836c0-10.036-17.4188-32.8138-18.1606-33.7782L26.4562,0l-0,0 c-0,0-18.1604,23.742-18.1604,33.7764C7.8704,44.5766,16.2084,52.9128,26.4562,52.9128" />
+  );
+}

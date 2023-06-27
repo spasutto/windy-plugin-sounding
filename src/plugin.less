@@ -7,7 +7,7 @@
     .left-border {
       left: @width;
     }
-  });  
+  });
 
 	#search {
 		display: none;
@@ -29,10 +29,10 @@
   }
 
   .mobileTablet({
-    display: block; 
-    left: 0; 
-    top: 0; 
-    right: 0; 
+    display: block;
+    left: 0;
+    top: 0;
+    right: 0;
     width: 100%;
     height: auto;
     margin: 0;
@@ -51,7 +51,7 @@
       // Do not display model details on mobiles.
       display: none;
     }
-  });  
+  });
 
   .closing-x {
     display: block;
@@ -60,7 +60,7 @@
   .wsp-abs {
     // So that the 1x1 img do not take space.
     position: absolute;
-  }  
+  }
 
   #wsp-zoom {
     position: absolute;
@@ -68,7 +68,7 @@
     left: 60px;
     font-size: 25px;
     user-select: none;
-    color: @myred;    
+    color: @myred;
   }
 
   select {
@@ -114,11 +114,13 @@
     .cumulus {
       stroke: #030104;
       stroke-width: 2px;
-      fill: ivory;
+      fill: /*ivory*/black;
     }
 
     .raindrop {
       fill: blue;
+      stroke-width: 4px;
+      stroke: white;
     }
 
     .line {
@@ -167,7 +169,7 @@
     }
     .isotherm.zero {
       stroke-width: 1;
-    }    
+    }
 
     .parcel {
       stroke-width: 3;

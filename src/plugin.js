@@ -69,7 +69,7 @@ export const onopen = (params) => {
   let lat;
   let lon;
 
-  if (params.query) {    
+  if (params.query) {
     lat = params.query.lat;
     lon = params.query.lon;
   } else {
@@ -115,6 +115,8 @@ export const onopen = (params) => {
       store.dispatch(addSubscription(() => windyPicker.off(pickerOpened)));
 
       const pickerMoved = windyPicker.on("pickerMoved", ({ lat, lon }) => {
+        //debugger;
+        //console.log(windyPicker.getParams());
         store.dispatch(setLocation(lat, lon));
       });
       store.dispatch(addSubscription(() => windyPicker.off(pickerMoved)));
